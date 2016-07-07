@@ -7,6 +7,6 @@ import android.net.Uri;
  */
 public class ContentProviderContract {
     public static final Uri CONTENT_URI = Uri.parse("content://com.example.sysadmin.database_demo.MyContentProvider/collegues");
-    public static final String _ID = "_ID";
+    public static final String _ID = "_id";
     public static final String NAME = "Name";
 }

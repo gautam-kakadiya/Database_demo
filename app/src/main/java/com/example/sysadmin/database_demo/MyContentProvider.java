@@ -19,11 +19,11 @@ public class MyContentProvider extends ContentProvider {
 
     private static final UriMatcher uriMatcher = new UriMatcher(UriMatcher.NO_MATCH);
     private MySqLiteHelper sqlhelper;
-    private static final int DATABASE_VERSION=2;
+    private static final int DATABASE_VERSION=3;
     private static final String DATABASE_NAME="gomzeedb";
     private static final String TABLE_NAME = "collegues";
     private static final String NAME = "Name";
-    private static final String _ID ="_ID";
+    private static final String _ID ="_id";
     private static final String CREATE_TABLE = "CREATE TABLE "+TABLE_NAME+"("+_ID+" INTEGER PRIMARY KEY AUTOINCREMENT,"+
                             NAME+" VARCHAR(255))";
     private static final String DROP_TABLE = "DROP TABLE IF EXISTS "+TABLE_NAME ;
