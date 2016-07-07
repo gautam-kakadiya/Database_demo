@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">Database_demo</string>
+    <string name="providername">myprovider</string>
+</resources>
