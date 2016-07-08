@@ -9,22 +9,27 @@ import android.support.v4.content.Loader;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.SimpleCursorAdapter;
+import android.widget.Toast;
 
-public class MainActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<Cursor> {
+public class MainActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<Cursor>, View.OnClickListener {
 
     private ListView listView;
     private SimpleCursorAdapter mCursorAdapter;
+    private EditText edt;
+    private Button addButton;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        ContentValues cv = new ContentValues();
-        Uri mnewUri;
-        cv.put(ContentProviderContract.NAME,"Gautam");
-        mnewUri = getContentResolver().insert(ContentProviderContract.CONTENT_URI,cv);
 
+        edt = (EditText) findViewById(R.id.edt1);
+        addButton = (Button) findViewById(R.id.add_button);
+        addButton.setOnClickListener(this);
         listView = (ListView) findViewById(R.id.list_view);
 
 
@@ -52,10 +57,10 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
                         ContentProviderContract.NAME
                 };
 
-// Defines a list of View IDs that will receive the Cursor columns for each row
+        // Defines a list of View IDs that will receive the Cursor columns for each row
         int[] mWordListItems = { R.id.tv};
 
-// Creates a new SimpleCursorAdapter
+        // Creates a new SimpleCursorAdapter
         mCursorAdapter = new SimpleCursorAdapter(
                 getApplicationContext(),               // The application's Context object
                 R.layout.list_item,                  // A layout in XML for one row in the ListView
@@ -64,7 +69,7 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
                 mWordListItems,                        // An integer array of view IDs in the row layout
                 0);                                    // Flags (usually none are needed)
         Log.d("Till setting addapter", "onCreate: ");
-// Sets the adapter for the ListView
+        // Sets the adapter for the ListView
         listView.setAdapter(mCursorAdapter);
 
         getSupportLoaderManager().initLoader(0,null,this);
@@ -93,5 +98,21 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
     @Override
     public void onLoaderReset(Loader<Cursor> loader) {
         mCursorAdapter.swapCursor(null);
+    }
+
+    @Override
+    public void onClick(View view) {
+        if (view.getId() == R.id.add_button) {
+            String txt = edt.getText().toString();
+            if (txt.equalsIgnoreCase("")) {
+                Toast.makeText(this, "Enter something to add", Toast.LENGTH_SHORT).show();
+            } else {
+                ContentValues cv = new ContentValues();
+                Uri mnewUri;
+                cv.put(ContentProviderContract.NAME, edt.getText().toString());
+                mnewUri = getContentResolver().insert(ContentProviderContract.CONTENT_URI, cv);
+                getSupportLoaderManager().restartLoader(0,null,this);
+            }
+        }
     }
 }

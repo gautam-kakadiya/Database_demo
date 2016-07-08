@@ -19,7 +19,7 @@ public class MyContentProvider extends ContentProvider {
 
     private static final UriMatcher uriMatcher = new UriMatcher(UriMatcher.NO_MATCH);
     private MySqLiteHelper sqlhelper;
-    private static final int DATABASE_VERSION=3;
+    private static final int DATABASE_VERSION=5;
     private static final String DATABASE_NAME="gomzeedb";
     private static final String TABLE_NAME = "collegues";
     private static final String NAME = "Name";
